@@ -1,0 +1,44 @@
+import parselmouth: This imports the parselmouth library, which is used for extracting audio features.
+
+import numpy as np: This imports the numpy library, commonly used for numerical operations in Python, with the alias np.
+
+def extract_audio_features(audio_file): This defines a function named extract_audio_features that takes an audio_file path as input.
+
+sound = parselmouth.Sound(audio_file): This line creates a parselmouth.Sound object from the audio file specified by audio_file.
+
+pitch = sound.to_pitch(): This line extracts the pitch contour from the sound using the to_pitch method.
+
+mean_pitch = np.nanmean(pitch.selected_array['frequency']): This calculates the mean pitch from the pitch contour. np.nanmean is used to calculate the mean while ignoring any NaN (Not a Number) values.
+
+intensity = sound.to_intensity(): This line extracts the intensity contour from the sound using the to_intensity method.
+
+mean_intensity = np.nanmean(intensity.values): This calculates the mean intensity from the intensity contour, similar to how the mean pitch was calculated.
+
+return mean_pitch, mean_intensity: This returns the mean pitch and mean intensity as a tuple.
+
+def detect_gender(audio_file_path): This defines a function named detect_gender that takes an audio_file_path as input.
+
+mean_pitch, mean_intensity = extract_audio_features(audio_file_path): This line calls the extract_audio_features function to get the mean pitch and mean intensity from the audio file specified by audio_file_path.
+
+pitch_threshold = 150: This sets a threshold value for pitch, above which a voice might be classified as female.
+
+intensity_threshold = 50: This sets a threshold value for intensity, above which a voice might be classified as female.
+
+if mean_pitch > pitch_threshold and mean_intensity > intensity_threshold:: This condition checks if both the mean pitch and mean intensity are above their respective thresholds.
+
+return "Female": If the condition is met, it returns "Female", indicating that the detected gender is female.
+
+return "Male": If the condition is not met, it returns "Male", indicating that the detected gender is male.
+
+audio_file_path = "/content/A18_10.wav": This assigns the path of the audio file to be analyzed to the variable audio_file_path.
+
+gender = detect_gender(audio_file_path): This calls the detect_gender function with the audio_file_path as input and assigns the result to the variable gender.
+
+print("Detected Gender:", gender): This prints out the detected gender.
+
+Summary:
+The code defines two functions: extract_audio_features for extracting mean pitch and mean intensity from an audio file, and detect_gender for classifying the gender based on the extracted features and predefined thresholds. The main script demonstrates the usage of these functions by detecting the gender of a specified audio file and printing the result.
+
+
+
+

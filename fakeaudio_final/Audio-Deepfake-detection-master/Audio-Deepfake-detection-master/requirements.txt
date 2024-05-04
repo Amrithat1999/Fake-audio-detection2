@@ -1,0 +1,7 @@
+customtkinter
+joblib
+librosa
+numpy
+Pillow
+scikit_learn
+flask
